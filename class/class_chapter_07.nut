@@ -235,14 +235,17 @@ class tutorial.chapter_07 extends basic_chapter
   }
 
   function is_work_allowed_here(pl, tool_id, name, pos, tool) {
-    local result=null // null is equivalent to 'allowed'
+    //local result=null // null is equivalent to 'allowed'
     local t = tile_x(pos.x, pos.y, pos.z)
-    local way = t.find_object(mo_way)
+    //local way = t.find_object(mo_way)
     local nr = compass_nr
+
+    // inspections tool
+    if (tool_id==4096)
+      return null
+
     switch (this.step) {
       case 1:
-        if (tool_id==4096)
-          return null
 
         if ((pos.x>=c_cty_lim1[nr].a.x-(1))&&(pos.y>=c_cty_lim1[nr].a.y-(1))&&(pos.x<=c_cty_lim1[nr].b.x+(1))&&(pos.y<=c_cty_lim1[nr].b.y+(1))){
           return null
@@ -252,8 +255,6 @@ class tutorial.chapter_07 extends basic_chapter
       break;
 
       case 2:
-        if (tool_id==4096)
-          return null
 
         if ((pos.x>=c_cty_lim2[nr].a.x-(1))&&(pos.y>=c_cty_lim2[nr].a.y-(1))&&(pos.x<=c_cty_lim2[nr].b.x+(1))&&(pos.y<=c_cty_lim2[nr].b.y+(1))){
           return null
@@ -263,8 +264,6 @@ class tutorial.chapter_07 extends basic_chapter
       break;
 
       case 3:
-        if (tool_id==4096)
-          return null
 
         if ((pos.x>=c_cty_lim3[nr].a.x-(1))&&(pos.y>=c_cty_lim3[nr].a.y-(1))&&(pos.x<=c_cty_lim3[nr].b.x+(1))&&(pos.y<=c_cty_lim3[nr].b.y+(1))){
           return null
@@ -274,8 +273,6 @@ class tutorial.chapter_07 extends basic_chapter
       break;
 
       case 4:
-        if (tool_id==4096)
-          return null
 
         if ((pos.x>=c_cty_lim4[nr].a.x-(1))&&(pos.y>=c_cty_lim4[nr].a.y-(1))&&(pos.x<=c_cty_lim4[nr].b.x+(1))&&(pos.y<=c_cty_lim4[nr].b.y+(1))){
           return null
@@ -284,12 +281,7 @@ class tutorial.chapter_07 extends basic_chapter
           return translate("You can only use this tool in the city")+cty4.name.tostring()+" ("+city6_tow.tostring()+")."
       break;
 
-      case 5:
-        return null;
-
     }
-    if (tool_id==4096)
-      return null
 
     return tool_id
   }
