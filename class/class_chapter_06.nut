@@ -114,6 +114,10 @@ class tutorial.chapter_06 extends basic_chapter
         text.c1_b = "<a href=\"("+c1_track.b.x+","+c1_track.b.y+")\">("+c1_track.b.tostring()+")</a>"
         text.c2_a = "<a href=\"("+c2_track.a.x+","+c2_track.a.y+")\">("+c2_track.a.tostring()+")</a>"
         text.c2_b = "<a href=\"("+c2_track.b.x+","+c2_track.b.y+")\">("+c2_track.b.tostring()+")</a>"
+
+        text.st1 = "<a href=\"("+city1_city7_air[0].x+","+city1_city7_air[0].y+")\">("+city1_city7_air[0].tostring()+")</a>"
+        text.st2 = "<a href=\"("+city1_halt_airport_extension[0].x+","+city1_halt_airport_extension[0].y+")\">("+city1_halt_airport_extension[0].tostring()+")</a>"
+
         break
 
       case 2:
@@ -154,6 +158,12 @@ class tutorial.chapter_06 extends basic_chapter
           local c = coord(c_list[j].x, c_list[j].y)
           local tile = my_tile(c)
           local st_halt = tile.get_halt()
+
+          if ( j == 0 ) {
+            // airport bus halt
+            text.sch1 = "<a href=\"("+tile.x+","+tile.y+")\"> "+st_halt.get_name()+" ("+tile.x+","+tile.y+")</a>"
+          }
+
           if(sch_cov_correct){
             list_tx += format("<em>%s %d:</em> %s <em>%s</em><br>", translate("Stop"), j+1, st_halt.get_name(), translate("OK"))
             continue
@@ -165,6 +175,7 @@ class tutorial.chapter_06 extends basic_chapter
             list_tx += format("<em>%s %d:</em> %s <em>%s</em><br>", translate("Stop"), j+1, st_halt.get_name(), translate("OK"))
           }
         }
+
         local c = coord(c_list[get_waiting_halt(7)].x, c_list[get_waiting_halt(7)].y)
         text.stnam = (get_waiting_halt(7)+1) + ") " + my_tile(c).get_halt().get_name()+" ("+c.tostring()+")"
         text.stx = list_tx
@@ -183,6 +194,12 @@ class tutorial.chapter_06 extends basic_chapter
           local c = coord(c_list[j].x, c_list[j].y)
           local tile = my_tile(c)
           local st_halt = tile.get_halt()
+
+          if ( j == 0 ) {
+            // airport bus halt
+            text.sch2 = "<a href=\"("+tile.x+","+tile.y+")\"> "+st_halt.get_name()+" ("+tile.x+","+tile.y+")</a>"
+          }
+
           if(sch_cov_correct){
             list_tx += format("<em>%s %d:</em> %s <em>%s</em><br>", translate("Stop"), j+1, st_halt.get_name(), translate("OK"))
             continue
@@ -205,20 +222,13 @@ class tutorial.chapter_06 extends basic_chapter
 
         break
     }
-      /*local st1_halt = my_tile(city1_city7_air[0]).get_halt()
-      local st2_halt = my_tile(city1_city7_air[1]).get_halt()
-      if(st1_halt){
-        text.sch1 = "<a href=\"("+city1_city7_air[0].x+","+city1_city7_air[0].y+")\"> "+st1_halt.get_name()+" ("+city1_city7_air[0].tostring()+")</a>"
-        text.sch2 = "<a href=\"("+city1_city7_air[1].x+","+city1_city7_air[1].y+")\"> "+st2_halt.get_name()+" ("+city1_city7_air[1].tostring()+")</a>"
-      }*/
+
       text.w1name = translate(obj1_way_name)
       text.w2name = translate(obj2_way_name)
       text.bus1 = translate(veh1_obj)
       text.bus2 = translate(veh2_obj)
       text.cit1 = city1_tow.href(cty1.name.tostring())
       text.cit2 = city7_tow.href(cty2.name.tostring())
-      text.st1 = "<a href=\"("+city1_city7_air[0].x+","+city1_city7_air[0].y+")\">("+city1_city7_air[0].tostring()+")</a>"
-      text.st2 = "<a href=\"("+city1_city7_air[1].x+","+city1_city7_air[1].y+")\">("+city1_city7_air[1].tostring()+")</a>"
       text.dep1 = "<a href=\"("+ch6_air_depot.a.x+","+ch6_air_depot.a.y+")\">("+ch6_air_depot.a.tostring()+")</a>"
       return text
   }
