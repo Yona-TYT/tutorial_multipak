@@ -662,13 +662,13 @@ function is_scenario_completed(pl)
 
   // check for automatic step
   if ( pending_call ) {
-    gui.add_message("check automaric jump : percentage " + percentage)
-    gui.add_message(" : chapter.step " + chapter.step)
+    //gui.add_message("check automaric jump : percentage " + percentage)
+    //gui.add_message(" : chapter.step " + chapter.step)
     //gui.add_message(" : persistent.ch_max_sub_steps " + persistent.ch_max_sub_steps)
     //gui.add_message(" : persistent.ch_sub_step " + persistent.ch_sub_step)
 
     local percentage_step = chapter_percentage(persistent.ch_max_steps, chapter.step, persistent.ch_max_sub_steps, persistent.ch_sub_step)
-    gui.add_message(" : percentage_step " + percentage_step)
+    //gui.add_message(" : percentage_step " + percentage_step)
 
     local jump_step = false
     if ( chapter.step == 1 && percentage >= 0 ) {
