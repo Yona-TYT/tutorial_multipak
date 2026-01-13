@@ -303,15 +303,19 @@ class basic_chapter
   }
 
   /**
-   *  check station add tile wt_road (chapter 7)
+   *  check waytype tile in tile list from station
    *
-   *  halt = tile_x
+   *  halt      - tile_x from station
+   *  search_wt - waytype for search tile
+   *
+   *  return    - tile_x or null
+   *
    */
-  function check_halt_public(halt) {
+  function check_halt_wt(halt, search_wt) {
     local tiles = halt.get_halt().get_tile_list()
     for ( local i = 0; i < tiles.len(); i++ ) {
       local k = tiles[i].find_object(mo_building).get_desc().get_waytype()
-      if ( k == wt_road ) {
+      if ( k == search_wt ) {
         return tiles[i]
       }
     }

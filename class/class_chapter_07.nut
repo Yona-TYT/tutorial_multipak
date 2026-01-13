@@ -150,7 +150,7 @@ class tutorial.chapter_07 extends basic_chapter
         if (!correct_cov)
           return 0
 
-        local tile = check_halt_public(ch7_rail_stations[0])
+        local tile = check_halt_wt(ch7_rail_stations[0], wt_road)
         if ( tile != null ) {
           if ( pass_count == 0 ) {
             transfer_pass = cov_pax(ch7_rail_stations[0], gl_wt, gl_good)
@@ -171,7 +171,7 @@ class tutorial.chapter_07 extends basic_chapter
         if (!correct_cov)
           return 0
 
-        local tile = check_halt_public(ch7_rail_stations[1])
+        local tile = check_halt_wt(ch7_rail_stations[1], wt_road)
         if ( tile != null ) {
           if ( pass_count == 0 ) {
             transfer_pass = cov_pax(ch7_rail_stations[1], gl_wt, gl_good)
@@ -192,7 +192,7 @@ class tutorial.chapter_07 extends basic_chapter
         if (!correct_cov)
           return 0
 
-        local tile = check_halt_public(ch7_rail_stations[2])
+        local tile = check_halt_wt(ch7_rail_stations[2], wt_road)
         if ( tile != null ) {
           if ( pass_count == 0 ) {
             transfer_pass = cov_pax(ch7_rail_stations[2], gl_wt, gl_good)
@@ -213,7 +213,7 @@ class tutorial.chapter_07 extends basic_chapter
         if (!correct_cov)
           return 0
 
-        local tile = check_halt_public(ch7_rail_stations[3])
+        local tile = check_halt_wt(ch7_rail_stations[3], wt_road)
         if ( tile != null ) {
           if ( pass_count == 0 ) {
             transfer_pass = cov_pax(ch7_rail_stations[3], gl_wt, gl_good)

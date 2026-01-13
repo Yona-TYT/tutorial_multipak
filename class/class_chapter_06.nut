@@ -159,7 +159,7 @@ class tutorial.chapter_06 extends basic_chapter
           local tile = my_tile(c)
           local st_halt = tile.get_halt()
 
-          if ( j == 0 ) {
+          if ( check_halt_wt(tile, wt_air) != null ) {
             // airport bus halt
             text.sch1 = "<a href=\"("+tile.x+","+tile.y+")\"> "+st_halt.get_name()+" ("+tile.x+","+tile.y+")</a>"
           }
@@ -195,7 +195,7 @@ class tutorial.chapter_06 extends basic_chapter
           local tile = my_tile(c)
           local st_halt = tile.get_halt()
 
-          if ( j == 0 ) {
+          if ( check_halt_wt(tile, wt_air) != null ) {
             // airport bus halt
             text.sch2 = "<a href=\"("+tile.x+","+tile.y+")\"> "+st_halt.get_name()+" ("+tile.x+","+tile.y+")</a>"
           }
