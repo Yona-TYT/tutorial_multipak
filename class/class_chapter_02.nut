@@ -106,12 +106,12 @@ class tutorial.chapter_02 extends basic_chapter
     if(this.step == 4){
       local c_dep = this.my_tile(city1_road_depot)
       local c_list = city1_halt_1
-      start_sch_tmpsw(pl,c_dep, c_list)
+      start_sch_tmpsw(pl, c_dep, c_list)
     }
     else if(this.step == 6){
       local c_dep = this.my_tile(city1_road_depot)
       local c_list = city1_halt_2
-      start_sch_tmpsw(pl,c_dep, c_list)
+      start_sch_tmpsw(pl, c_dep, c_list)
     }
     else if(this.step == 7){
       local c_dep = this.my_tile(city1_road_depot)
@@ -153,8 +153,9 @@ class tutorial.chapter_02 extends basic_chapter
         break
       case 4:
         //local c = coord(city1_halt_1[0].x, city1_halt_1[0].y)
-        local tile = my_tile(city1_halt_1[0])
-        text.stnam = "1) "+tile.get_halt().get_name()+" ("+city1_halt_1[0].tostring()+")"
+        local halt_to_waiting = get_waiting_halt(1)
+        local tile = my_tile(city1_halt_1[halt_to_waiting])
+        text.stnam = (halt_to_waiting+1) + ") "+tile.get_halt().get_name()+" ("+city1_halt_1[halt_to_waiting].tostring()+")"
 
         text.list = create_schedule_list(city1_halt_1)
         text.nr = city1_halt_1.len()
@@ -180,10 +181,10 @@ class tutorial.chapter_02 extends basic_chapter
         }
         text.list = create_schedule_list(city1_halt_2)
 
-        local tile = my_tile(city1_halt_2[0])
-        text.stnam = ""+tile.get_halt().get_name()+" ("+city1_halt_2[0].tostring()+")"
+        local tile = my_tile(city1_halt_2[get_waiting_halt(2)])
+        text.stnam = ""+tile.get_halt().get_name()+" ("+city1_halt_2[get_waiting_halt(2)].tostring()+")"
 
-        local halt = my_tile(city1_halt_2[0]).get_halt()
+        local halt = my_tile(city1_halt_2[get_waiting_halt(2)]).get_halt()
         text.line = get_line_name(halt)
 
         text.cir = cov_nr
@@ -198,8 +199,8 @@ class tutorial.chapter_02 extends basic_chapter
           text = ttextfile("chapter_02/07_3-4.txt")
           text.tx = ttext("<em>[3/4]</em>")
 
-          local tile = my_tile(city2_halt_1[city2_halt_1.len()-1])
-          text.stnam = ""+city2_halt_1.len()+") "+tile.get_halt().get_name()+" ("+coord_to_string(tile)+")"
+          //local tile = my_tile(city2_halt_1[city2_halt_1.len()-1])
+          //text.stnam = ""+city2_halt_1.len()+") "+tile.get_halt().get_name()+" ("+coord_to_string(tile)+")"
 
           text.list = create_halt_list(city2_halt_1)
           text.nr = city2_halt_1.len()
@@ -223,7 +224,7 @@ class tutorial.chapter_02 extends basic_chapter
           text = ttextfile("chapter_02/07_3-4.txt")
           text.tx = ttext("<em>[3/4]</em>")
 
-          local tile = my_tile(city2_halt_1[city2_halt_1.len()-1])
+          local tile = my_tile(city2_halt_1[get_waiting_halt(3)])
           text.stnam = ""+tile.get_halt().get_name()+" ("+coord_to_string(tile)+")"
 
           text.list = create_schedule_list(city2_halt_1)
@@ -882,7 +883,7 @@ class tutorial.chapter_02 extends basic_chapter
     local nr = schedule.entries.len()
     switch (this.step) {
       case 4:
-        local selc = 0
+        local selc = get_waiting_halt(1)
         local load = veh1_load
         local time = veh1_wait
         local c_list = city1_halt_1
@@ -895,7 +896,7 @@ class tutorial.chapter_02 extends basic_chapter
         return result
       break
       case 6:
-        local selc = 0
+        local selc = get_waiting_halt(2)
         local load = veh1_load
         local time = veh1_wait
         local c_list = city1_halt_2
@@ -910,7 +911,7 @@ class tutorial.chapter_02 extends basic_chapter
         local load = veh1_load
         local time = veh1_wait
         local c_list = city2_halt_1
-        local selc = c_list.len()-1
+        local selc = get_waiting_halt(3)
         result = compare_schedule(result, pl, schedule, selc, load, time, c_list, true)
         if(result == null){
           local line_name = line3_name //"Test 3"
@@ -939,7 +940,7 @@ class tutorial.chapter_02 extends basic_chapter
             reset_tmpsw()
             return bus_result_message(result, translate(name), veh, cov)
           }
-          local selc = 0
+          local selc = get_waiting_halt(1)
           local load = veh1_load
           local time = veh1_wait
           local c_list = city1_halt_1
@@ -958,13 +959,13 @@ class tutorial.chapter_02 extends basic_chapter
           local good_list = [good_desc_x (good_alias.passa).get_catg_index()]    //Passengers
           local name = veh1_obj
           local st_tile = 1
-          result = is_convoy_correct(depot,cov,veh,good_list,name, st_tile)
+          result = is_convoy_correct(depot, cov, veh, good_list, name, st_tile)
           if (result!=null){
             reset_tmpsw()
             return bus_result_message(result, translate(name), veh, cov)
           }
 
-          local selc = 0
+          local selc = get_waiting_halt(2)
           local load = veh1_load
           local time = veh1_wait
           local c_list = city1_halt_2
@@ -993,7 +994,7 @@ class tutorial.chapter_02 extends basic_chapter
           local time = veh1_wait
           local c_list = city2_halt_1
           local siz = c_list.len()
-          local selc = siz-1
+          local selc = get_waiting_halt(3)
           result = compare_schedule_convoy(result, pl, cov, convoy, selc, load, time, c_list, siz)
           if(result == null)
             reset_tmpsw()
@@ -1072,7 +1073,7 @@ class tutorial.chapter_02 extends basic_chapter
           local wait = veh1_wait
           local sch_siz = c_list.len()
           for(local j=0;j<sch_siz;j++){
-            if (j==0)
+            if (j==get_waiting_halt(1))
               sched.entries.append(schedule_entry_x(my_tile(c_list[j]), load, wait))
             else
               sched.entries.append(schedule_entry_x(my_tile(c_list[j]), 0, 0))
@@ -1123,7 +1124,7 @@ class tutorial.chapter_02 extends basic_chapter
           local time = veh1_wait
           local sched = schedule_x(gl_wt, [])
           for(local i=0;i<sch_siz;i++){
-            if (i==0)
+            if (i==get_waiting_halt(2))
               sched.entries.append(schedule_entry_x(my_tile(c_list[i]), load, time))
             else
               sched.entries.append(schedule_entry_x(my_tile(c_list[i]), 0, 0))
@@ -1175,7 +1176,7 @@ class tutorial.chapter_02 extends basic_chapter
           local c_list = city2_halt_1
           local sch_siz = c_list.len()
           for(local j=0;j<sch_siz;j++){
-            if (j==sch_siz-1)
+            if (j==get_waiting_halt(3))
               sched.entries.append(schedule_entry_x(my_tile(c_list[j]), load, wait))
             else
               sched.entries.append(schedule_entry_x(my_tile(c_list[j]), 0, 0))
