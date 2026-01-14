@@ -3255,7 +3255,7 @@ function create_schedule_list(coord_list) {
       continue
     }
     if(tmpsw[j]==0){
-      list_tx += format("<st>%s %d:</st> %s<br>", translate("Stop"), j+1, c.href(st_halt.get_name()+" ("+c.tostring()+")"))
+      list_tx += format("<st>%s %d:</st> %s<br>", translate("Stop"), j+1, c.href(st_halt.get_name()+"("+c.tostring()+")"))
     }
     else{
       list_tx += format("<em>%s %d:</em> %s <em>%s</em><br>", translate("Stop"), j+1, st_halt.get_name(), translate("OK"))

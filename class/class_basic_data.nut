@@ -176,7 +176,7 @@ function translate_objects() {
 }
 
 /**
- *  set vehicle for chapter 2 step 4
+ *  set vehicle for chapter 2 step 4, 6, 7
  *
  */
 function get_veh_ch2_st4() {
