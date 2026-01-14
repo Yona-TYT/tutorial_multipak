@@ -139,23 +139,18 @@ class tutorial.chapter_02 extends basic_chapter
 
     switch (this.step) {
       case 1:
-        text.t1 = city1_road_depot.href("("+city1_road_depot.tostring()+")")
-        // remove from textfile
-        // or used build_list[] - last entry depot tile
-        text.t2 = "" //coorda.href("("+coorda.tostring()+")")
-        text.t3 = "" //coordb.href("("+coordb.tostring()+")")
+        // set image for button by different in paksets
+        text.img_road_menu = get_gui_img("road_menu")
         break
       case 2:
-        text.pos = city1_road_depot.href("("+city1_road_depot.tostring()+")")
         break
       case 3:
         text.list = create_halt_list(city1_halt_1)
         break
       case 4:
-        //local c = coord(city1_halt_1[0].x, city1_halt_1[0].y)
-        local halt_to_waiting = get_waiting_halt(1)
-        local tile = my_tile(city1_halt_1[halt_to_waiting])
-        text.stnam = (halt_to_waiting+1) + ") "+tile.get_halt().get_name()+" ("+city1_halt_1[halt_to_waiting].tostring()+")"
+
+        local tile = my_tile(city1_halt_1[get_waiting_halt(1)])
+        text.stnam = (get_waiting_halt(1)+1) + ") "+tile.get_halt().get_name()+" ("+city1_halt_1[get_waiting_halt(1)].tostring()+")"
 
         text.list = create_schedule_list(city1_halt_1)
         text.nr = city1_halt_1.len()
@@ -164,6 +159,7 @@ class tutorial.chapter_02 extends basic_chapter
         text.bpos1 = bridge1_coords.a.href("("+bridge1_coords.a.tostring()+")")
         text.bpos2 = bridge1_coords.b.href("("+bridge1_coords.b.tostring()+")")
 
+        // load file info/build_bridge_xx.txt
         text.bridge_info = get_info_file("bridge")
 
         break
@@ -181,8 +177,9 @@ class tutorial.chapter_02 extends basic_chapter
         }
         text.list = create_schedule_list(city1_halt_2)
 
-        local tile = my_tile(city1_halt_2[get_waiting_halt(2)])
-        text.stnam = ""+tile.get_halt().get_name()+" ("+city1_halt_2[get_waiting_halt(2)].tostring()+")"
+        // dock bus halt
+        local tile = my_tile(city1_halt_2[0])
+        text.stnam = ""+tile.get_halt().get_name()+" ("+city1_halt_2[0].tostring()+")"
 
         local halt = my_tile(city1_halt_2[get_waiting_halt(2)]).get_halt()
         text.line = get_line_name(halt)
@@ -202,8 +199,8 @@ class tutorial.chapter_02 extends basic_chapter
           //local tile = my_tile(city2_halt_1[city2_halt_1.len()-1])
           //text.stnam = ""+city2_halt_1.len()+") "+tile.get_halt().get_name()+" ("+coord_to_string(tile)+")"
 
-          text.list = create_halt_list(city2_halt_1)
-          text.nr = city2_halt_1.len()
+          //text.list = create_halt_list(city2_halt_1)
+          //text.nr = city2_halt_1.len()
         }
         else if (pot0==0){
           text = ttextfile("chapter_02/07_1-4.txt")
@@ -244,13 +241,12 @@ class tutorial.chapter_02 extends basic_chapter
           }
         }
 
-        text.n1 = city1_tow.href(cty1.name.tostring())
-        text.n2 = city2_tow.href(cty2.name.tostring())
+        //text.n1 = city1_tow.href(cty1.name.tostring())
+        //text.n2 = city2_tow.href(cty2.name.tostring())
         local t = coord(way1_coords.a.x, way1_coords.a.y)
         text.pt1 = t.href("("+t.tostring()+")")
         t = coord(way1_coords.b.x, way1_coords.b.y)
         text.pt2 = t.href("("+t.tostring()+")")
-        text.dep = city1_road_depot.href("("+city1_road_depot.tostring()+")")
         break
 
       case 8:
@@ -260,12 +256,17 @@ class tutorial.chapter_02 extends basic_chapter
         break
     }
 
-    // set image for buttons by different in paksets
-    text.img_road_menu = get_gui_img("road_menu")
+    // text step 2, 6 and 7
+    local steps = [1, 2, 4, 6, 7]
+    if ( steps.find(this.step) != null ) {
+      // depot coord step 2, 6 and 7
+      text.dep = city1_road_depot.href("("+city1_road_depot.tostring()+")")
+    }
 
+    // veh load and wait time set to steps
     text.load = veh1_load
     text.wait = get_wait_time_text(veh1_wait)
-    text.pos = city1_road_depot.href("("+city1_road_depot.tostring()+")")
+
     text.bus1 = translate(veh1_obj)
     text.name = city1_tow.href(cty1.name.tostring())
     text.name2 = city2_tow.href(cty2.name.tostring())
